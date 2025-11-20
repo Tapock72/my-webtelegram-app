@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мое Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #ff5252;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать в мое Web App! 🚀</h1>
+        <p>Это тестовая страница для Telegram бота</p>
+
+        <button onclick="sendData()">Отправить данные в Telegram</button>
+        <button onclick="closeWebApp()">Закрыть Web App</button>
+
+        <div id="output" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        // Инициализация Telegram Web App
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Раскрыть на весь экран
+        tg.MainButton.setText("Готово").show(); // Показать кнопку
+
+        // Функция для отправки данных в бота
+        function sendData() {
+            const data = {
+                action: 'button_click',
+                timestamp: new Date().toISOString(),
+                message: 'Привет из Web App!'
+            };
+
+            tg.sendData(JSON.stringify(data));
+            document.getElementById('output').innerHTML = '<p>✅ Данные отправлены!</p>';
+        }
+
+        // Функция для закрытия Web App
+        function closeWebApp() {
+            tg.close();
+        }
+
+        // Обработчик кнопки "Готово"
+        tg.MainButton.onClick(function() {
+            sendData();
+        });
+    </script>
+</body>
+</html>
